@@ -7,6 +7,8 @@ without a live patient or a provisioned key.
 > None of this is real patient data. Every twin, event, and identifier is
 > fabricated for development. Do not treat any value here as clinically valid.
 
+> **The [wiki](https://github.com/ontomorph-core/sample-data/wiki) has the full guide:** getting started, concepts, guides, use cases, API reference, and FAQ.
+
 ## Concepts
 
 A quick map of what lives here and why.
