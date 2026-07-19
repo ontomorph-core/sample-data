@@ -1,24 +1,38 @@
 # OntoMorph sample data
 
 Synthetic fixtures for building and testing against the OntoMorph platform and
-the HOLON clinical-knowledge API. Use these to develop against realistic shapes
-without needing a live patient or a provisioned key.
+the HOLON clinical-knowledge API. Use them to develop against realistic shapes
+without a live patient or a provisioned key.
 
-> **None of this is real patient data.** Every twin, event, and identifier is
+> None of this is real patient data. Every twin, event, and identifier is
 > fabricated for development. Do not treat any value here as clinically valid.
+
+## Concepts
+
+A quick map of what lives here and why.
+
+**Digital twin.** A living model of one patient's body, organized by body system
+and built from their health events. The `twins/` fixtures are synthetic twins.
+
+**Health event.** One timestamped entry on a twin, such as a lab result or an
+observation. Clinical fields live inside the event's `data` object.
+
+**Grant token.** The signed consent a patient issues to authorize access to one
+twin. The `grants/` fixtures let you call `dtp.twins.connect(token)` without a
+real consent flow.
 
 ## Layout
 
 | Directory | Contents |
 | --- | --- |
-| `twins/` | Synthetic digital twins — one JSON file per patient, containing their profile and a stream of `HealthEvent`s across body systems. |
-| `grants/` | Demo grant tokens (and the claims they decode to) for connecting to the sample twins with [`@dtp/sdk`](https://www.npmjs.com/package/@dtp/sdk). |
-| `holon/` | Example HOLON payloads — concept lookups, drug-interaction checks, and cross-vocabulary mappings — mirroring `@holon/client` responses. |
+| `twins/` | Synthetic digital twins, one JSON file per patient, each holding a profile and a stream of `HealthEvent`s across body systems. |
+| `grants/` | Demo grant tokens, and the claims they decode to, for connecting to the sample twins with [`@dtp/sdk`](https://www.npmjs.com/package/@dtp/sdk). |
+| `holon/` | Example HOLON payloads (concept lookups, drug-interaction checks, cross-vocabulary mappings) mirroring `@holon/client` responses. |
 
 ## Fixture shapes
 
-**`twins/<id>.json`** — a twin and its events. Each event matches the
-`HealthEvent` shape returned by twin-core; clinical fields live inside `data`:
+**`twins/<id>.json`** holds a twin and its events. Each event matches the
+`HealthEvent` shape returned by twin-core, with clinical fields inside `data`:
 
 ```jsonc
 {
@@ -36,15 +50,15 @@ without needing a live patient or a provisioned key.
 }
 ```
 
-**`grants/<id>.json`** — a demo grant token plus its decoded `GrantClaims`
+**`grants/<id>.json`** holds a demo grant token plus its decoded `GrantClaims`
 (`grantId`, `twinId`, `systems`, `eventTypes`), so you can `dtp.twins.connect(token)`.
 
-**`holon/*.json`** — captured `@holon/client` responses (search hits, interaction
-checks, mapping translations) for offline development.
+**`holon/*.json`** holds captured `@holon/client` responses (search hits,
+interaction checks, mapping translations) for offline development.
 
 ## Usage
 
-Point your **test** credentials at these fixtures while building. A typical loop:
+Point your test credentials at these fixtures while building. A typical loop:
 
 ```ts
 import { DTP } from "@dtp/sdk";
@@ -59,5 +73,5 @@ See the developer docs at <https://developer.ontomorph.com/docs>.
 
 ## Status
 
-Fixtures are being added incrementally. If a directory is empty, that dataset is
-not published yet — track progress in the repository issues.
+Fixtures are added incrementally. An empty directory means that dataset is not
+published yet. Track progress in the repository issues.
