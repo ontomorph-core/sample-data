@@ -26,8 +26,8 @@ real consent flow.
 | Directory | Contents |
 | --- | --- |
 | `twins/` | Synthetic digital twins, one JSON file per patient, each holding a profile and a stream of `HealthEvent`s across body systems. |
-| `grants/` | Demo grant tokens, and the claims they decode to, for connecting to the sample twins with [`@dtp/sdk`](https://www.npmjs.com/package/@dtp/sdk). |
-| `holon/` | Example HOLON payloads (concept lookups, drug-interaction checks, cross-vocabulary mappings) mirroring `@holon/client` responses. |
+| `grants/` | Demo grant tokens, and the claims they decode to, for connecting to the sample twins with [`@ontomorph/dtp-sdk`](https://www.npmjs.com/package/@ontomorph/dtp-sdk). |
+| `holon/` | Example HOLON payloads (concept lookups, drug-interaction checks, cross-vocabulary mappings) mirroring `@ontomorph/holon-client` responses. |
 
 ## Fixture shapes
 
@@ -53,7 +53,7 @@ real consent flow.
 **`grants/<id>.json`** holds a demo grant token plus its decoded `GrantClaims`
 (`grantId`, `twinId`, `systems`, `eventTypes`), so you can `dtp.twins.connect(token)`.
 
-**`holon/*.json`** holds captured `@holon/client` responses (search hits,
+**`holon/*.json`** holds captured `@ontomorph/holon-client` responses (search hits,
 interaction checks, mapping translations) for offline development.
 
 ## Usage
@@ -61,7 +61,7 @@ interaction checks, mapping translations) for offline development.
 Point your test credentials at these fixtures while building. A typical loop:
 
 ```ts
-import { DTP } from "@dtp/sdk";
+import { DTP } from "@ontomorph/dtp-sdk";
 import grant from "./grants/twin_demo_0001.json" assert { type: "json" };
 
 const dtp = new DTP({ apiKey: process.env.DTP_TEST_KEY }); // dtp_test_…
